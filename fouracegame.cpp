@@ -1,10 +1,16 @@
 #include "fouracegame.h"
 #include <QDateTime>
 
+/* 0.0005% passrate if no moving is done and pass criteria is having only aces on table. */
+/* 0.485% passrate if no moving is done and pass criteria is having top cards as aces. */
+/* ??? passrate if moving is done based on getting minimum amount of cards left on table and pass criteria is having only aces on table. */
+/* ??? passrate if moving is done based on getting minimum amount of cards left on table and pass criteria is having top cards as aces. */
+
 FourAceGame::FourAceGame()
 {
     qsrand(QDateTime::currentDateTime().toSecsSinceEpoch());
     resetDeck();
+    resetTable();
 }
 
 void FourAceGame::resetDeck()
@@ -15,6 +21,13 @@ void FourAceGame::resetDeck()
             Card card((Suite)suite, number);
             m_deck.append(card);
         }
+    }
+}
+
+void FourAceGame::resetTable()
+{
+    for (int index = 0 ; index < 4 ; ++index) {
+        m_table[index].clear();
     }
 }
 
@@ -70,6 +83,20 @@ bool FourAceGame::onlyAcesOnTable()
     return false;
 }
 
+bool FourAceGame::topCardsAreAllAces()
+{
+    if (!m_table[0].isEmpty() &&
+        !m_table[1].isEmpty() &&
+        !m_table[2].isEmpty() &&
+        !m_table[3].isEmpty() &&
+        (14 == m_table[0].last().second) &&
+        (14 == m_table[1].last().second) &&
+        (14 == m_table[2].last().second) &&
+        (14 == m_table[3].last().second))
+        return true;
+    return false;
+}
+
 bool FourAceGame::largerFromSameSuiteExists(Card comparison)
 {
     for (int index = 0 ; index < 4 ; ++index) {
@@ -84,6 +111,7 @@ bool FourAceGame::largerFromSameSuiteExists(Card comparison)
 
 bool FourAceGame::playRound()
 {
+    resetTable();
     resetDeck();
     shuffle();
     while (m_deck.length()) {

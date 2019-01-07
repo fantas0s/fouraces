@@ -23,7 +23,9 @@ private:
     void dealFour();
     void cleanUp();
     bool onlyAcesOnTable();
+    bool topCardsAreAllAces();
     bool largerFromSameSuiteExists(Card comparison);
+    void resetTable();
 };
 
 #endif // FOURACEGAME_H
