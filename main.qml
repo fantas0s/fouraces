@@ -13,7 +13,7 @@ Window {
     AIBot {
         id: aiBot
         Component.onCompleted: {
-            var times = 1000;
+            var times = 100000;
             aiBot.play(times);
             var successes = aiBot.getNumOfPassedGames();
             console.log("Successfully passed " + successes + " games out of " + times + " played (" + 100*successes/times + "%).");

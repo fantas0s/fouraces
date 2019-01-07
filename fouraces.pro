@@ -15,7 +15,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
     aibot.cpp \
-    fouracegame.cpp
+    fouracegame.cpp \
+    card.cpp \
+    table.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,4 +34,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     aibot.h \
-    fouracegame.h
+    fouracegame.h \
+    table.h \
+    card.h
